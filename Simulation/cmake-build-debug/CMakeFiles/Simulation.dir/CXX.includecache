@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/george/Projects/Personal/SE/Simulation/main.cpp
+iostream
+-
+vector
+-
+map
+-
+iterator
+-
+algorithm
+-
+math.h
+-
+

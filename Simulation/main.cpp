@@ -41,8 +41,9 @@ void catchBall(int &numberOfBalls) {
     numberOfBalls ++ ;
 }
 using namespace std;
+const int MAX = 4;
+int mat[MAX][MAX];
 int main() {
-    int val = 1;
    int n,m; // size of matrix
    cout<<"Rows and columns of matrix:\n";
    cin>>n>>m;
@@ -56,62 +57,62 @@ int main() {
    cin>> totalBalls;
    cout<<"Total number of balls: "<<totalBalls<<"\n";
    int current_balls = 0;
-   int a[n][m];
    int count = 0;
    for(int i = 0;i<n;i++)
        for(int j = 0;j<n;j++) {
-           a[i][j] = count++;
+           mat[i][j] = count++;
        }
 while(current_balls<totalBalls) {
        goToOrigin(xRobot,yRobot);
        int i, k = 0, l = 0;
-
        int mock_n = n;
        int mock_m = m;
        bool catched = false;
-       while (k < m && l < mock_n && catched!=true) {
 
+       while (k < m && l < mock_n && catched!=true) {
            for (i = l; i < mock_n; ++i) {
-               if(prime(a[k][i]))
+               if(prime(mat[k][i]))
                {
                    //mark ball as catched
-                   a[k][i] = 0;
+                   mat[k][i] = 0;
                    catched = true;
-                   continue;
+                   break;
                }
            }
            k++;
-
+            if(catched){continue;}
            for (i = k; i < mock_m; ++i) {
-               if(prime(a[i][mock_n - 1])) {
+               if(prime(mat[i][mock_n - 1])) {
+                   mat[i][mock_n -1] = 0;
                    catched = true;
-                   continue;
+                   break;
                }
            }
            mock_n--;
-
+           if(catched){continue;}
            if (k < mock_m) {
                for (i = mock_n - 1; i >= l; --i) {
-                   if(prime(a[mock_m - 1][i])) {
-                       a[mock_m - 1][i] = 0;
+                   if(prime(mat[mock_m - 1][i])) {
+                       mat[mock_m - 1][i] = 0;
                        catched = true;
-                       continue;
+                       break;
                    }
                }
                mock_m--;
            }
-
+           if(catched){continue;}
            if (l < mock_n) {
                for (i = mock_m - 1; i >= k; --i) {
-                   if(prime(a[i][l])) {
-                       a[i][l] = 0;
+                   if(prime(mat[i][l])) {
+                       mat[i][l] = 0;
                        catched = true;
-                       continue;
+                       break;
                    }
                }
                l++;
            }
        }
+
        goToOrigin(xRobot,yRobot);
        current_balls++;
    }
